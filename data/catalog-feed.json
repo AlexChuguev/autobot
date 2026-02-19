@@ -1,0 +1,265 @@
+{
+  "sources": [
+    {
+      "id": "drones-russia",
+      "name": "Drones Russia",
+      "siteUrl": "https://drones-russia.ru/catalog"
+    },
+    {
+      "id": "robosobaka",
+      "name": "Robosobaka",
+      "siteUrl": "https://robosobaka.ru/products"
+    }
+  ],
+  "products": [
+    {
+      "id": "dr-avata2-fmc-single",
+      "source": "drones-russia",
+      "name": "DJI Avata 2 Fly More Combo (Single Battery)",
+      "sku": "FVDJAV2FMS",
+      "category": "FPV-дроны и очки",
+      "categoryUrl": "https://drones-russia.ru/catalog/kvadrokoptery/fpv_drony_i_ochki/",
+      "sourceUrl": "https://drones-russia.ru/catalog/kvadrokoptery/fpv_drony_i_ochki/fpv_dron_dji_avata_2_fly_more_combo_single_battery/",
+      "price": 136490,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/0a0/0fchck8q7id55zfg9w6mxn9nkhm7x3m3.png",
+      "params": {
+        "Бренд": "DJI",
+        "Цвет": "Серый",
+        "Вес": "377 г",
+        "Макс. время полета": "23 мин",
+        "Дальность передачи сигнала": "13 км",
+        "Макс. скорость": "27 м/с",
+        "Тип матрицы": "CMOS",
+        "Разрешение видео": "4K"
+      }
+    },
+    {
+      "id": "dr-air3s-fmc-rc2",
+      "source": "drones-russia",
+      "name": "DJI AIR 3S Fly More Combo (DJI RC 2)",
+      "sku": "CP.MA.00000816.02",
+      "category": "Квадрокоптеры",
+      "categoryUrl": "https://drones-russia.ru/catalog/kvadrokoptery/",
+      "sourceUrl": "https://drones-russia.ru/catalog/kvadrokoptery/kvadrokopter_dji_air_3s_fly_more_combo_dji_rc_2/",
+      "price": 179990,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/8a4/3005w6m170ywi5xryuuz6ebrcfxy1hch.png",
+      "params": {
+        "Бренд": "DJI",
+        "Вес": "724 г",
+        "Макс. время полета": "45 мин",
+        "Макс. скорость": "21 м/с",
+        "Дальность передачи сигнала": "20 км",
+        "Размер матрицы": "1 дюйм",
+        "Разрешение видео": "4K"
+      }
+    },
+    {
+      "id": "dr-neo-fmc",
+      "source": "drones-russia",
+      "name": "DJI Neo Fly More Combo",
+      "sku": "CP.FP.00000185.01",
+      "category": "Квадрокоптеры",
+      "categoryUrl": "https://drones-russia.ru/catalog/kvadrokoptery/",
+      "sourceUrl": "https://drones-russia.ru/catalog/kvadrokoptery/kvadrokopter_dji_neo_fly_more_combo/",
+      "price": 47690,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/f6f/4lf0f2mecgtjtn0udfzg7ikz07ttjp1d.png",
+      "params": {
+        "Бренд": "DJI",
+        "Вес": "135 г",
+        "Макс. время полета": "18 мин",
+        "Макс. скорость": "16 м/с",
+        "Дальность передачи сигнала": "10 км",
+        "Тип матрицы": "CMOS",
+        "Разрешение видео": "4K"
+      }
+    },
+    {
+      "id": "dr-rc2-controller",
+      "source": "drones-russia",
+      "name": "Пульт DJI RC 2",
+      "sku": "CP.RC.00000007.01",
+      "category": "Пульты управления",
+      "categoryUrl": "https://drones-russia.ru/catalog/aksessuary/pulty_upravleniya/",
+      "sourceUrl": "https://drones-russia.ru/catalog/aksessuary/pulty_upravleniya/pult_dji_rc_2/",
+      "price": 50790,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/c95/95r9bu4ykyfnsqxof50lf5vntz4l4mrr.jpg",
+      "params": {
+        "Бренд": "DJI",
+        "Цвет": "Серый",
+        "Время работы": "3 часа",
+        "Емкость аккумулятора": "6200 мАч",
+        "Экран": "5.5 дюйма",
+        "Диапазон температур": "от -10 до +40 C"
+      }
+    },
+    {
+      "id": "dr-mavic3pro-fmc-rc",
+      "source": "drones-russia",
+      "name": "DJI Mavic 3 Pro Fly More Combo (DJI RC)",
+      "sku": "CP.MA.00000660.01",
+      "category": "Квадрокоптеры",
+      "categoryUrl": "https://drones-russia.ru/catalog/kvadrokoptery/",
+      "sourceUrl": "https://drones-russia.ru/catalog/kvadrokoptery/kvadrokopter_dji_mavic_3_pro_fly_more_combo_dji_rc/",
+      "price": 293990,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/1ab/9n3ucf65ly6f7kfc6yyklycz70mjsimx.jpg",
+      "params": {
+        "Бренд": "DJI",
+        "Вес": "958 г",
+        "Макс. время полета": "43 мин",
+        "Макс. скорость": "21 м/с",
+        "Дальность передачи сигнала": "15 км",
+        "Разрешение видео": "5.1K",
+        "Внутренняя память": "8 ГБ"
+      }
+    },
+    {
+      "id": "dr-ecoflow-delta2",
+      "source": "drones-russia",
+      "name": "Портативная станция EcoFlow DELTA 2",
+      "sku": "EFDELT1300-EU",
+      "category": "Зарядные станции",
+      "categoryUrl": "https://drones-russia.ru/catalog/zarjadnye_stantsii/",
+      "sourceUrl": "https://drones-russia.ru/catalog/zarjadnye_stantsii/portativnaya_zaryadnaya_stantsiya_ef_delta_2_1_024_vt_ch/",
+      "price": 76990,
+      "currency": "RUB",
+      "image": "https://drones-russia.ru/upload/iblock/8bd/37c0w8v58joork9es4m4ate60wsc56ic.png",
+      "params": {
+        "Бренд": "EcoFlow",
+        "Цвет": "Черный",
+        "Емкость": "1024 Втч",
+        "Мощность": "1800 Вт",
+        "Вес": "12 кг",
+        "Рабочая температура": "от -10 до +45 C"
+      }
+    },
+    {
+      "id": "rb-t1200pro",
+      "source": "robosobaka",
+      "name": "ROBOUP T1200PRO",
+      "sku": "rb-t1200pro",
+      "category": "Робособаки",
+      "categoryUrl": "https://robosobaka.ru/collections/dog-robots",
+      "sourceUrl": "https://robosobaka.ru/products/roboup-t1200pro",
+      "price": 658900,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/ROBOUPT1200PRO.jpg",
+      "params": {
+        "Бренд": "RoboUP",
+        "Класс": "Четвероногий робот",
+        "Время автономной работы": "до 2 часов",
+        "Макс. скорость": "3.5 м/с",
+        "Полезная нагрузка": "до 10 кг",
+        "Класс защиты": "IP54",
+        "Дальность управления": "до 100 м"
+      }
+    },
+    {
+      "id": "rb-go2pro",
+      "source": "robosobaka",
+      "name": "UNITREE GO2 PRO",
+      "sku": "rb-go2pro",
+      "category": "Робособаки",
+      "categoryUrl": "https://robosobaka.ru/collections/dog-robots",
+      "sourceUrl": "https://robosobaka.ru/products/unitree-go2-pro",
+      "price": 359000,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/GO2-PRO.png",
+      "params": {
+        "Бренд": "Unitree",
+        "Класс": "Четвероногий робот",
+        "Время автономной работы": "до 2 часов",
+        "Макс. скорость": "5 м/с",
+        "Полезная нагрузка": "до 8 кг",
+        "Класс защиты": "IP54",
+        "Дальность управления": "до 150 м"
+      }
+    },
+    {
+      "id": "rb-unitree-b2",
+      "source": "robosobaka",
+      "name": "UNITREE B2",
+      "sku": "rb-unitree-b2",
+      "category": "Промышленные роботы",
+      "categoryUrl": "https://robosobaka.ru/products",
+      "sourceUrl": "https://robosobaka.ru/products/unitree-b2",
+      "price": 1365000,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/UnitreeB2.png",
+      "params": {
+        "Бренд": "Unitree",
+        "Класс": "Промышленный четвероногий робот",
+        "Время автономной работы": "до 4 часов",
+        "Макс. скорость": "6 м/с",
+        "Полезная нагрузка": "до 40 кг",
+        "Класс защиты": "IP67",
+        "Дальность управления": "до 300 м"
+      }
+    },
+    {
+      "id": "rb-unitree-b2w",
+      "source": "robosobaka",
+      "name": "UNITREE B2-W",
+      "sku": "rb-unitree-b2w",
+      "category": "Промышленные роботы",
+      "categoryUrl": "https://robosobaka.ru/products",
+      "sourceUrl": "https://robosobaka.ru/products/unitree-b2-w",
+      "price": 1989000,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/UnitreeB2-W.png",
+      "params": {
+        "Бренд": "Unitree",
+        "Класс": "Промышленный четвероногий робот",
+        "Время автономной работы": "до 5 часов",
+        "Макс. скорость": "20 км/ч",
+        "Полезная нагрузка": "до 120 кг",
+        "Класс защиты": "IP67",
+        "Дальность управления": "до 500 м"
+      }
+    },
+    {
+      "id": "rb-unitree-g1",
+      "source": "robosobaka",
+      "name": "UNITREE G1",
+      "sku": "rb-unitree-g1",
+      "category": "Гуманоидные роботы",
+      "categoryUrl": "https://robosobaka.ru/products",
+      "sourceUrl": "https://robosobaka.ru/products/unitree-g1",
+      "price": 2499000,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/UnitreeG1.png",
+      "params": {
+        "Бренд": "Unitree",
+        "Класс": "Гуманоидный робот",
+        "Время автономной работы": "до 2 часов",
+        "Рост": "127 см",
+        "Вес": "35 кг",
+        "Система": "AI Navigation"
+      }
+    },
+    {
+      "id": "rb-unitree-h1",
+      "source": "robosobaka",
+      "name": "UNITREE H1",
+      "sku": "rb-unitree-h1",
+      "category": "Гуманоидные роботы",
+      "categoryUrl": "https://robosobaka.ru/products",
+      "sourceUrl": "https://robosobaka.ru/products/unitree-h1",
+      "price": 3899000,
+      "currency": "RUB",
+      "image": "https://robosobaka.ru/cdn/shop/files/UnitreeH1.png",
+      "params": {
+        "Бренд": "Unitree",
+        "Класс": "Гуманоидный робот",
+        "Рост": "180 см",
+        "Вес": "47 кг",
+        "Макс. скорость": "5.6 км/ч",
+        "Система": "AI Motion Control"
+      }
+    }
+  ]
+}
