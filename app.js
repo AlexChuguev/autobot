@@ -2,8 +2,7 @@ const FEED_URL = "./data/catalog-feed.json";
 const ATTRIBUTES_URL = "./data/attributes.json";
 const CATEGORIES_URL = "./data/categories.json";
 const FACETS_URL = "./data/facets.json";
-const FALLBACK_IMAGE =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420' viewBox='0 0 640 420'%3E%3Crect width='100%25' height='100%25' fill='%23eef2f7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2357636f' font-family='Arial' font-size='26'%3EНет изображения%3C/text%3E%3C/svg%3E";
+const FALLBACK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 const state = {
   products: [],
@@ -358,17 +357,18 @@ function renderProducts() {
   }
 
   for (const product of list) {
+    const imageSrc = product.image || FALLBACK_IMAGE;
     const item = document.createElement("li");
     item.className = "product-item";
     item.innerHTML = `
       <article class="card">
         <a class="media" href="${productPageLink(product.id)}">
-          <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'" />
+          <img src="${imageSrc}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'" />
         </a>
         <div class="card-body">
           <div class="meta">
             <span class="badge">${sourceName(product.source)}</span>
-            <a href="${product.categoryUrl}" target="_blank" rel="noreferrer">${product.category}</a>
+            <span>${product.category}</span>
           </div>
           <h3><a href="${productPageLink(product.id)}">${product.name}</a></h3>
           <p class="sku">Артикул: ${product.sku}</p>

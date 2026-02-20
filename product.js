@@ -1,6 +1,5 @@
 const FEED_URL = "./data/catalog-feed.json";
-const FALLBACK_IMAGE =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420' viewBox='0 0 640 420'%3E%3Crect width='100%25' height='100%25' fill='%23eef2f7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2357636f' font-family='Arial' font-size='26'%3EНет изображения%3C/text%3E%3C/svg%3E";
+const FALLBACK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 function formatPrice(value) {
   return new Intl.NumberFormat("ru-RU", {
@@ -56,7 +55,6 @@ async function initProductPage() {
 
   const data = await response.json();
   const product = data.products.find((item) => item.id === productId);
-  const source = data.sources.find((entry) => entry.id === (product && product.source));
 
   if (!product) {
     page.innerHTML = `
@@ -73,7 +71,7 @@ async function initProductPage() {
     <nav class="breadcrumbs" aria-label="Хлебные крошки">
       <a href="./index.html">Каталог</a>
       <span>/</span>
-      <a href="${product.categoryUrl}" target="_blank" rel="noreferrer">${escapeHtml(product.category)}</a>
+      <span>${escapeHtml(product.category)}</span>
       <span>/</span>
       <span>${escapeHtml(product.name)}</span>
     </nav>
@@ -84,15 +82,12 @@ async function initProductPage() {
       </div>
 
       <div class="info-col">
-        <p class="source-line">Источник: <a href="${source ? source.siteUrl : "#"}" target="_blank" rel="noreferrer">${
-    source ? source.name : escapeHtml(product.source)
-  }</a></p>
+        <p class="source-line">Источник: ${escapeHtml(product.source)}</p>
         <h1>${escapeHtml(product.name)}</h1>
         <p class="sku">Артикул: ${escapeHtml(product.sku)}</p>
         <p class="price">${formatPrice(product.price)}</p>
 
         <div class="actions">
-          <a class="btn" href="${product.sourceUrl}" target="_blank" rel="noreferrer">Оригинальная карточка</a>
           <a class="btn secondary" href="./index.html">Назад в каталог</a>
         </div>
 
