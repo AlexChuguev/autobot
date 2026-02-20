@@ -1,0 +1,287 @@
+{
+  "generatedAt": "2026-02-20",
+  "global": {
+    "price": {
+      "min": 47690,
+      "max": 3899000
+    }
+  },
+  "categories": {
+    "fpv-дроны-и-очки": {
+      "price": {
+        "min": 136490,
+        "max": 136490
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "DJI",
+              "count": 1
+            }
+          ]
+        },
+        "max_flight_time": {
+          "values": [
+            {
+              "value": "23 мин",
+              "count": 1
+            }
+          ]
+        },
+        "signal_range": {
+          "values": [
+            {
+              "value": "13 км",
+              "count": 1
+            }
+          ]
+        },
+        "video_resolution": {
+          "values": [
+            {
+              "value": "4K",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "гуманоидные-роботы": {
+      "price": {
+        "min": 2499000,
+        "max": 3899000
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "Unitree",
+              "count": 2
+            }
+          ]
+        },
+        "device_class": {
+          "values": [
+            {
+              "value": "Гуманоидный робот",
+              "count": 2
+            }
+          ]
+        },
+        "battery_life": {
+          "values": [
+            {
+              "value": "до 2 часов",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "зарядные-станции": {
+      "price": {
+        "min": 76990,
+        "max": 76990
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "EcoFlow",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "квадрокоптеры": {
+      "price": {
+        "min": 47690,
+        "max": 293990
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "DJI",
+              "count": 3
+            }
+          ]
+        },
+        "max_flight_time": {
+          "values": [
+            {
+              "value": "18 мин",
+              "count": 1
+            },
+            {
+              "value": "43 мин",
+              "count": 1
+            },
+            {
+              "value": "45 мин",
+              "count": 1
+            }
+          ]
+        },
+        "signal_range": {
+          "values": [
+            {
+              "value": "10 км",
+              "count": 1
+            },
+            {
+              "value": "15 км",
+              "count": 1
+            },
+            {
+              "value": "20 км",
+              "count": 1
+            }
+          ]
+        },
+        "video_resolution": {
+          "values": [
+            {
+              "value": "4K",
+              "count": 2
+            },
+            {
+              "value": "5.1K",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "промышленные-роботы": {
+      "price": {
+        "min": 1365000,
+        "max": 1989000
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "Unitree",
+              "count": 2
+            }
+          ]
+        },
+        "device_class": {
+          "values": [
+            {
+              "value": "Промышленный четвероногий робот",
+              "count": 2
+            }
+          ]
+        },
+        "battery_life": {
+          "values": [
+            {
+              "value": "до 4 часов",
+              "count": 1
+            },
+            {
+              "value": "до 5 часов",
+              "count": 1
+            }
+          ]
+        },
+        "payload": {
+          "values": [
+            {
+              "value": "до 120 кг",
+              "count": 1
+            },
+            {
+              "value": "до 40 кг",
+              "count": 1
+            }
+          ]
+        },
+        "protection_class": {
+          "values": [
+            {
+              "value": "IP67",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+    "пульты-управления": {
+      "price": {
+        "min": 50790,
+        "max": 50790
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "DJI",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "робособаки": {
+      "price": {
+        "min": 359000,
+        "max": 658900
+      },
+      "attributes": {
+        "brand": {
+          "values": [
+            {
+              "value": "RoboUP",
+              "count": 1
+            },
+            {
+              "value": "Unitree",
+              "count": 1
+            }
+          ]
+        },
+        "device_class": {
+          "values": [
+            {
+              "value": "Четвероногий робот",
+              "count": 2
+            }
+          ]
+        },
+        "battery_life": {
+          "values": [
+            {
+              "value": "до 2 часов",
+              "count": 2
+            }
+          ]
+        },
+        "payload": {
+          "values": [
+            {
+              "value": "до 10 кг",
+              "count": 1
+            },
+            {
+              "value": "до 8 кг",
+              "count": 1
+            }
+          ]
+        },
+        "protection_class": {
+          "values": [
+            {
+              "value": "IP54",
+              "count": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,21 +1,22 @@
 const FEED_URL = "./data/catalog-feed.json";
-const FACET_PARAM_KEYS = [
-  "Макс. время полета",
-  "Дальность передачи сигнала",
-  "Разрешение видео",
-  "Время автономной работы",
-  "Полезная нагрузка",
-  "Класс защиты",
-  "Класс"
-];
+const ATTRIBUTES_URL = "./data/attributes.json";
+const CATEGORIES_URL = "./data/categories.json";
+const FACETS_URL = "./data/facets.json";
+const FALLBACK_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420' viewBox='0 0 640 420'%3E%3Crect width='100%25' height='100%25' fill='%23eef2f7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2357636f' font-family='Arial' font-size='26'%3EНет изображения%3C/text%3E%3C/svg%3E";
 
 const state = {
   products: [],
   sources: [],
+  attributes: [],
+  categories: [],
+  facets: null,
+  attributeByCode: {},
+  categoryIdByName: {},
   selectedSources: new Set(),
   selectedCategories: new Set(),
   selectedBrands: new Set(),
-  selectedParamValues: {},
+  selectedAttributeValues: {},
   search: "",
   priceMin: null,
   priceMax: null,
@@ -56,8 +57,20 @@ function sourceName(sourceId) {
   return source ? source.name : sourceId;
 }
 
-function getBrand(product) {
-  return product.params["Бренд"] || "Без бренда";
+function uniqueSorted(items) {
+  return [...new Set(items)].sort((a, b) => String(a).localeCompare(String(b), "ru"));
+}
+
+function productCategoryId(product) {
+  return state.categoryIdByName[product.category] || slugify(product.category);
+}
+
+function getAttributeValue(product, attributeCode) {
+  const attribute = state.attributeByCode[attributeCode];
+  if (!attribute) {
+    return null;
+  }
+  return product.params[attribute.sourceKey] || null;
 }
 
 function renderCheckboxOptions(container, name, values, selectedSet, displayMap = {}) {
@@ -78,64 +91,104 @@ function renderCheckboxOptions(container, name, values, selectedSet, displayMap 
   }
 }
 
-function uniqueSorted(items) {
-  return [...new Set(items)].sort((a, b) => String(a).localeCompare(String(b), "ru"));
+function activeCategoryIds() {
+  if (state.selectedCategories.size > 0) {
+    return [...state.selectedCategories];
+  }
+  return state.categories.map((item) => item.id);
 }
 
-function renderFilters() {
-  const sourceDisplayMap = Object.fromEntries(
-    state.sources.map((item) => [item.id, item.name])
-  );
-  renderCheckboxOptions(
-    el.sourceFilters,
-    "source",
-    state.sources.map((item) => item.id),
-    state.selectedSources,
-    sourceDisplayMap
-  );
+function categoryRange() {
+  let min = Infinity;
+  let max = -Infinity;
 
-  renderCheckboxOptions(
-    el.categoryFilters,
-    "category",
-    uniqueSorted(state.products.map((item) => item.category)),
-    state.selectedCategories
-  );
+  for (const categoryId of activeCategoryIds()) {
+    const facet = state.facets.categories[categoryId];
+    if (!facet || !facet.price) {
+      continue;
+    }
+    min = Math.min(min, facet.price.min);
+    max = Math.max(max, facet.price.max);
+  }
 
-  renderCheckboxOptions(
-    el.brandFilters,
-    "brand",
-    uniqueSorted(state.products.map(getBrand)),
-    state.selectedBrands
-  );
+  if (min === Infinity || max === -Infinity) {
+    return state.facets.global.price;
+  }
 
+  return { min, max };
+}
+
+function facetValuesForAttribute(attributeCode) {
+  const counts = new Map();
+
+  for (const categoryId of activeCategoryIds()) {
+    const facetCategory = state.facets.categories[categoryId];
+    const values = facetCategory && facetCategory.attributes[attributeCode]
+      ? facetCategory.attributes[attributeCode].values
+      : [];
+
+    for (const entry of values) {
+      counts.set(entry.value, (counts.get(entry.value) || 0) + entry.count);
+    }
+  }
+
+  return [...counts.entries()]
+    .map(([value, count]) => ({ value, count }))
+    .sort((a, b) => a.value.localeCompare(b.value, "ru"));
+}
+
+function activeFilterAttributes() {
+  const activeIds = new Set(activeCategoryIds());
+  const codes = new Set();
+
+  for (const category of state.categories) {
+    if (!activeIds.has(category.id)) {
+      continue;
+    }
+    for (const code of category.filterAttributes || []) {
+      const attr = state.attributeByCode[code];
+      if (attr && attr.filterable) {
+        codes.add(code);
+      }
+    }
+  }
+
+  return state.attributes
+    .filter((attr) => codes.has(attr.code))
+    .sort((a, b) => a.order - b.order);
+}
+
+function renderAttributeFilterBlocks() {
   el.paramFilters.innerHTML = "";
 
-  for (const key of FACET_PARAM_KEYS) {
-    const values = uniqueSorted(
-      state.products.map((product) => product.params[key]).filter(Boolean)
-    );
-
-    if (values.length === 0) {
+  for (const attribute of activeFilterAttributes()) {
+    if (attribute.code === "brand") {
       continue;
     }
 
-    if (!state.selectedParamValues[key]) {
-      state.selectedParamValues[key] = new Set();
+    const options = facetValuesForAttribute(attribute.code);
+    if (options.length === 0) {
+      continue;
+    }
+
+    if (!state.selectedAttributeValues[attribute.code]) {
+      state.selectedAttributeValues[attribute.code] = new Set();
     }
 
     const block = document.createElement("fieldset");
     block.className = "param-group";
-    block.innerHTML = `<legend>${key}</legend>`;
+    block.innerHTML = `<legend>${attribute.name}</legend>`;
 
-    for (const value of values) {
-      const id = `param-${slugify(key)}-${slugify(value)}`;
+    for (const option of options) {
+      const id = `param-${slugify(attribute.code)}-${slugify(option.value)}`;
+      const checked = state.selectedAttributeValues[attribute.code].has(option.value)
+        ? "checked"
+        : "";
       const label = document.createElement("label");
       label.className = "option";
       label.innerHTML = `
-        <input type="checkbox" id="${id}" data-param-key="${key}" value="${value}" ${
-          state.selectedParamValues[key].has(value) ? "checked" : ""
-        } />
-        <span>${value}</span>
+        <input type="checkbox" id="${id}" data-attr-code="${attribute.code}" value="${option.value}" ${checked} />
+        <span>${option.value} (${option.count})</span>
       `;
       block.appendChild(label);
     }
@@ -144,33 +197,71 @@ function renderFilters() {
   }
 }
 
+function renderFilters() {
+  const sourceDisplayMap = Object.fromEntries(state.sources.map((item) => [item.id, item.name]));
+  renderCheckboxOptions(
+    el.sourceFilters,
+    "source",
+    state.sources.map((item) => item.id),
+    state.selectedSources,
+    sourceDisplayMap
+  );
+
+  const categoryDisplayMap = Object.fromEntries(state.categories.map((item) => [item.id, item.name]));
+  renderCheckboxOptions(
+    el.categoryFilters,
+    "category",
+    state.categories.slice().sort((a, b) => a.order - b.order).map((item) => item.id),
+    state.selectedCategories,
+    categoryDisplayMap
+  );
+
+  const brandOptions = facetValuesForAttribute("brand");
+  renderCheckboxOptions(
+    el.brandFilters,
+    "brand",
+    brandOptions.map((item) => item.value),
+    state.selectedBrands,
+    Object.fromEntries(brandOptions.map((item) => [item.value, `${item.value} (${item.count})`]))
+  );
+
+  const range = categoryRange();
+  el.priceMin.placeholder = String(range.min);
+  el.priceMax.placeholder = String(range.max);
+
+  renderAttributeFilterBlocks();
+}
+
 function productMatchesSearch(product, query) {
   if (!query) {
     return true;
   }
 
   const normalized = query.toLowerCase();
-  const haystack = [
-    product.name,
-    product.sku,
-    product.category,
-    sourceName(product.source),
-    ...Object.entries(product.params).map(([key, value]) => `${key} ${value}`)
-  ]
-    .join(" ")
-    .toLowerCase();
+  const paramsText = Object.entries(product.params)
+    .map(([key, value]) => `${key} ${value}`)
+    .join(" ");
 
-  return haystack.includes(normalized);
+  return [product.name, product.sku, product.category, sourceName(product.source), paramsText]
+    .join(" ")
+    .toLowerCase()
+    .includes(normalized);
 }
 
-function matchesParamFilters(product) {
-  for (const [key, selectedValues] of Object.entries(state.selectedParamValues)) {
+function matchesAttributeFilters(product) {
+  const activeCodes = new Set(activeFilterAttributes().map((attribute) => attribute.code));
+
+  for (const [code, selectedValues] of Object.entries(state.selectedAttributeValues)) {
+    if (!activeCodes.has(code)) {
+      continue;
+    }
+
     if (selectedValues.size === 0) {
       continue;
     }
 
-    const paramValue = product.params[key];
-    if (!paramValue || !selectedValues.has(paramValue)) {
+    const value = getAttributeValue(product, code);
+    if (!value || !selectedValues.has(value)) {
       return false;
     }
   }
@@ -180,15 +271,17 @@ function matchesParamFilters(product) {
 
 function filteredProducts() {
   return state.products.filter((product) => {
+    const categoryId = productCategoryId(product);
+
     if (state.selectedSources.size > 0 && !state.selectedSources.has(product.source)) {
       return false;
     }
 
-    if (state.selectedCategories.size > 0 && !state.selectedCategories.has(product.category)) {
+    if (state.selectedCategories.size > 0 && !state.selectedCategories.has(categoryId)) {
       return false;
     }
 
-    const brand = getBrand(product);
+    const brand = getAttributeValue(product, "brand") || "Без бренда";
     if (state.selectedBrands.size > 0 && !state.selectedBrands.has(brand)) {
       return false;
     }
@@ -205,7 +298,7 @@ function filteredProducts() {
       return false;
     }
 
-    if (!matchesParamFilters(product)) {
+    if (!matchesAttributeFilters(product)) {
       return false;
     }
 
@@ -235,11 +328,18 @@ function sortedProducts(list) {
   return copy;
 }
 
-function chipsFromParams(params) {
-  return FACET_PARAM_KEYS.filter((key) => params[key])
-    .slice(0, 3)
-    .map((key) => `<li>${key}: ${params[key]}</li>`)
-    .join("");
+function chipsFromParams(product) {
+  const chips = state.attributes
+    .filter((attribute) => attribute.displayInCard && attribute.code !== "brand")
+    .sort((a, b) => a.order - b.order)
+    .map((attribute) => {
+      const value = getAttributeValue(product, attribute.code);
+      return value ? `<li>${attribute.name}: ${value}</li>` : "";
+    })
+    .filter(Boolean)
+    .slice(0, 3);
+
+  return chips.join("");
 }
 
 function productPageLink(productId) {
@@ -247,8 +347,7 @@ function productPageLink(productId) {
 }
 
 function renderProducts() {
-  const filtered = filteredProducts();
-  const list = sortedProducts(filtered);
+  const list = sortedProducts(filteredProducts());
 
   el.resultsCount.textContent = `Найдено товаров: ${list.length}`;
   el.productList.innerHTML = "";
@@ -264,7 +363,7 @@ function renderProducts() {
     item.innerHTML = `
       <article class="card">
         <a class="media" href="${productPageLink(product.id)}">
-          <img src="${product.image}" alt="${product.name}" loading="lazy" />
+          <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'" />
         </a>
         <div class="card-body">
           <div class="meta">
@@ -273,7 +372,7 @@ function renderProducts() {
           </div>
           <h3><a href="${productPageLink(product.id)}">${product.name}</a></h3>
           <p class="sku">Артикул: ${product.sku}</p>
-          <ul class="chips">${chipsFromParams(product.params)}</ul>
+          <ul class="chips">${chipsFromParams(product)}</ul>
           <div class="card-footer">
             <strong>${formatPrice(product.price)}</strong>
             <a class="more" href="${productPageLink(product.id)}">Открыть карточку</a>
@@ -289,6 +388,7 @@ function applyCheckboxState(name, selectedSet) {
   const selectedValues = [...document.querySelectorAll(`input[name='${name}']:checked`)].map(
     (node) => node.value
   );
+
   selectedSet.clear();
   for (const value of selectedValues) {
     selectedSet.add(value);
@@ -305,40 +405,47 @@ function bindEvents() {
     if (target.name === "source") {
       applyCheckboxState("source", state.selectedSources);
       renderProducts();
+      return;
     }
 
     if (target.name === "category") {
       applyCheckboxState("category", state.selectedCategories);
+      renderFilters();
       renderProducts();
+      return;
     }
 
     if (target.name === "brand") {
       applyCheckboxState("brand", state.selectedBrands);
       renderProducts();
+      return;
     }
 
-    if (target.dataset.paramKey) {
-      const key = target.dataset.paramKey;
-      if (!state.selectedParamValues[key]) {
-        state.selectedParamValues[key] = new Set();
+    if (target.dataset.attrCode) {
+      const code = target.dataset.attrCode;
+      if (!state.selectedAttributeValues[code]) {
+        state.selectedAttributeValues[code] = new Set();
       }
 
       if (target.checked) {
-        state.selectedParamValues[key].add(target.value);
+        state.selectedAttributeValues[code].add(target.value);
       } else {
-        state.selectedParamValues[key].delete(target.value);
+        state.selectedAttributeValues[code].delete(target.value);
       }
       renderProducts();
+      return;
     }
 
     if (target.id === "priceMin") {
       state.priceMin = target.value ? Number(target.value) : null;
       renderProducts();
+      return;
     }
 
     if (target.id === "priceMax") {
       state.priceMax = target.value ? Number(target.value) : null;
       renderProducts();
+      return;
     }
 
     if (target.id === "sortSelect") {
@@ -357,8 +464,8 @@ function bindEvents() {
     state.selectedCategories.clear();
     state.selectedBrands.clear();
 
-    for (const key of Object.keys(state.selectedParamValues)) {
-      state.selectedParamValues[key].clear();
+    for (const code of Object.keys(state.selectedAttributeValues)) {
+      state.selectedAttributeValues[code].clear();
     }
 
     state.search = "";
@@ -376,15 +483,29 @@ function bindEvents() {
   });
 }
 
-async function init() {
-  const response = await fetch(FEED_URL);
+async function fetchJson(url) {
+  const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`Не удалось загрузить фид: ${response.status}`);
+    throw new Error(`Не удалось загрузить ${url}: ${response.status}`);
   }
+  return response.json();
+}
 
-  const data = await response.json();
-  state.products = data.products;
-  state.sources = data.sources;
+async function init() {
+  const [feed, attributesData, categoriesData, facetsData] = await Promise.all([
+    fetchJson(FEED_URL),
+    fetchJson(ATTRIBUTES_URL),
+    fetchJson(CATEGORIES_URL),
+    fetchJson(FACETS_URL)
+  ]);
+
+  state.products = feed.products;
+  state.sources = feed.sources;
+  state.attributes = attributesData.attributes;
+  state.categories = categoriesData.categories;
+  state.facets = facetsData;
+  state.attributeByCode = Object.fromEntries(state.attributes.map((attr) => [attr.code, attr]));
+  state.categoryIdByName = Object.fromEntries(state.categories.map((cat) => [cat.name, cat.id]));
 
   renderFilters();
   renderProducts();

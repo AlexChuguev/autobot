@@ -1,4 +1,6 @@
 const FEED_URL = "./data/catalog-feed.json";
+const FALLBACK_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420' viewBox='0 0 640 420'%3E%3Crect width='100%25' height='100%25' fill='%23eef2f7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2357636f' font-family='Arial' font-size='26'%3EНет изображения%3C/text%3E%3C/svg%3E";
 
 function formatPrice(value) {
   return new Intl.NumberFormat("ru-RU", {
@@ -78,7 +80,7 @@ async function initProductPage() {
 
     <article class="product-card-page">
       <div class="media-col">
-        <img src="${product.image}" alt="${escapeHtml(product.name)}" />
+        <img src="${product.image}" alt="${escapeHtml(product.name)}" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'" />
       </div>
 
       <div class="info-col">

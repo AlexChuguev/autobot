@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "fpv-дроны-и-очки",
+      "name": "FPV-дроны и очки",
+      "slug": "fpv-дроны-и-очки",
+      "order": 10,
+      "filterAttributes": [
+        "brand",
+        "max_flight_time",
+        "signal_range",
+        "video_resolution"
+      ]
+    },
+    {
+      "id": "гуманоидные-роботы",
+      "name": "Гуманоидные роботы",
+      "slug": "гуманоидные-роботы",
+      "order": 20,
+      "filterAttributes": [
+        "brand",
+        "device_class",
+        "battery_life"
+      ]
+    },
+    {
+      "id": "зарядные-станции",
+      "name": "Зарядные станции",
+      "slug": "зарядные-станции",
+      "order": 30,
+      "filterAttributes": [
+        "brand"
+      ]
+    },
+    {
+      "id": "квадрокоптеры",
+      "name": "Квадрокоптеры",
+      "slug": "квадрокоптеры",
+      "order": 40,
+      "filterAttributes": [
+        "brand",
+        "max_flight_time",
+        "signal_range",
+        "video_resolution"
+      ]
+    },
+    {
+      "id": "промышленные-роботы",
+      "name": "Промышленные роботы",
+      "slug": "промышленные-роботы",
+      "order": 50,
+      "filterAttributes": [
+        "brand",
+        "device_class",
+        "battery_life",
+        "payload",
+        "protection_class"
+      ]
+    },
+    {
+      "id": "пульты-управления",
+      "name": "Пульты управления",
+      "slug": "пульты-управления",
+      "order": 60,
+      "filterAttributes": [
+        "brand"
+      ]
+    },
+    {
+      "id": "робособаки",
+      "name": "Робособаки",
+      "slug": "робособаки",
+      "order": 70,
+      "filterAttributes": [
+        "brand",
+        "device_class",
+        "battery_life",
+        "payload",
+        "protection_class"
+      ]
+    }
+  ]
+}

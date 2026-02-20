@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "attributes": [
+    {
+      "code": "brand",
+      "name": "Бренд",
+      "sourceKey": "Бренд",
+      "type": "enum",
+      "unit": null,
+      "filterable": true,
+      "displayInCard": true,
+      "order": 10
+    },
+    {
+      "code": "max_flight_time",
+      "name": "Макс. время полета",
+      "sourceKey": "Макс. время полета",
+      "type": "enum",
+      "unit": "мин",
+      "filterable": true,
+      "displayInCard": true,
+      "order": 20
+    },
+    {
+      "code": "signal_range",
+      "name": "Дальность передачи сигнала",
+      "sourceKey": "Дальность передачи сигнала",
+      "type": "enum",
+      "unit": "км",
+      "filterable": true,
+      "displayInCard": true,
+      "order": 30
+    },
+    {
+      "code": "video_resolution",
+      "name": "Разрешение видео",
+      "sourceKey": "Разрешение видео",
+      "type": "enum",
+      "unit": null,
+      "filterable": true,
+      "displayInCard": true,
+      "order": 40
+    },
+    {
+      "code": "battery_life",
+      "name": "Время автономной работы",
+      "sourceKey": "Время автономной работы",
+      "type": "enum",
+      "unit": null,
+      "filterable": true,
+      "displayInCard": true,
+      "order": 50
+    },
+    {
+      "code": "payload",
+      "name": "Полезная нагрузка",
+      "sourceKey": "Полезная нагрузка",
+      "type": "enum",
+      "unit": "кг",
+      "filterable": true,
+      "displayInCard": true,
+      "order": 60
+    },
+    {
+      "code": "protection_class",
+      "name": "Класс защиты",
+      "sourceKey": "Класс защиты",
+      "type": "enum",
+      "unit": null,
+      "filterable": true,
+      "displayInCard": true,
+      "order": 70
+    },
+    {
+      "code": "device_class",
+      "name": "Класс",
+      "sourceKey": "Класс",
+      "type": "enum",
+      "unit": null,
+      "filterable": true,
+      "displayInCard": true,
+      "order": 80
+    },
+    {
+      "code": "weight",
+      "name": "Вес",
+      "sourceKey": "Вес",
+      "type": "enum",
+      "unit": "г/кг",
+      "filterable": false,
+      "displayInCard": false,
+      "order": 90
+    },
+    {
+      "code": "max_speed",
+      "name": "Макс. скорость",
+      "sourceKey": "Макс. скорость",
+      "type": "enum",
+      "unit": null,
+      "filterable": false,
+      "displayInCard": false,
+      "order": 100
+    },
+    {
+      "code": "height",
+      "name": "Рост",
+      "sourceKey": "Рост",
+      "type": "enum",
+      "unit": "см",
+      "filterable": false,
+      "displayInCard": false,
+      "order": 110
+    }
+  ]
+}
