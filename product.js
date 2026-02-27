@@ -1,4 +1,4 @@
-const FEED_URL = "./data/catalog-feed.json";
+const FEED_URL = "/data/catalog-feed.json";
 const FALLBACK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 function formatPrice(value) {
@@ -42,7 +42,7 @@ async function initProductPage() {
       <div class="error-state">
         <h1>Товар не выбран</h1>
         <p>Передайте ID товара в URL: <code>product.html#id</code>.</p>
-        <a href="./index.html">Вернуться в каталог</a>
+        <a href="/catalog/">Вернуться в каталог</a>
       </div>
     `;
     return;
@@ -61,7 +61,7 @@ async function initProductPage() {
       <div class="error-state">
         <h1>Товар не найден</h1>
         <p>Проверьте корректность идентификатора товара.</p>
-        <a href="./index.html">Вернуться в каталог</a>
+        <a href="/catalog/">Вернуться в каталог</a>
       </div>
     `;
     return;
@@ -88,7 +88,7 @@ async function initProductPage() {
         <p class="price">${formatPrice(product.price)}</p>
 
         <div class="actions">
-          <a class="btn secondary" href="./index.html">Назад в каталог</a>
+          <a class="btn secondary" href="/catalog/">Назад в каталог</a>
         </div>
 
         <section class="params">

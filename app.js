@@ -1,7 +1,7 @@
-const FEED_URL = "./data/catalog-feed.json";
-const ATTRIBUTES_URL = "./data/attributes.json";
-const CATEGORIES_URL = "./data/categories.json";
-const FACETS_URL = "./data/facets.json";
+const FEED_URL = "/data/catalog-feed.json";
+const ATTRIBUTES_URL = "/data/attributes.json";
+const CATEGORIES_URL = "/data/categories.json";
+const FACETS_URL = "/data/facets.json";
 const FALLBACK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 const state = {
@@ -70,6 +70,18 @@ function getAttributeValue(product, attributeCode) {
     return null;
   }
   return product.params[attribute.sourceKey] || null;
+}
+
+
+function initialCategoryFromUrl() {
+  const dataCategory = document.body.dataset.categoryId;
+  if (dataCategory) {
+    return dataCategory;
+  }
+
+  const url = new URL(window.location.href);
+  const category = url.searchParams.get("category");
+  return category || "";
 }
 
 function renderCheckboxOptions(container, name, values, selectedSet, displayMap = {}) {
@@ -342,7 +354,7 @@ function chipsFromParams(product) {
 }
 
 function productPageLink(productId) {
-  return `./product.html#${encodeURIComponent(productId)}`;
+  return `/product.html#${encodeURIComponent(productId)}`;
 }
 
 function renderProducts() {
@@ -506,6 +518,11 @@ async function init() {
   state.facets = facetsData;
   state.attributeByCode = Object.fromEntries(state.attributes.map((attr) => [attr.code, attr]));
   state.categoryIdByName = Object.fromEntries(state.categories.map((cat) => [cat.name, cat.id]));
+
+  const initialCategory = initialCategoryFromUrl();
+  if (initialCategory && state.categories.some((cat) => cat.id === initialCategory)) {
+    state.selectedCategories.add(initialCategory);
+  }
 
   renderFilters();
   renderProducts();
